@@ -3,8 +3,7 @@ from __future__ import annotations
 
 import argparse
 
-from metahan.io.config_loader import load_layout_config
-from metahan.io.gds_writer import write_layout_gds
+from metahan.layout import build_layout
 
 
 def main() -> None:
@@ -13,8 +12,8 @@ def main() -> None:
     parser.add_argument("--output", default=None, help="Optional output GDS path.")
     args = parser.parse_args()
 
-    cfg = load_layout_config(args.config)
-    out = write_layout_gds(cfg, output_file=args.output)
+    layout = build_layout(args.config)
+    out = layout.write_gds(args.output)
     print(f"Wrote: {out}")
 
 

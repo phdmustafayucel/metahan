@@ -10,7 +10,7 @@ from metahan.core.builder import MetasurfaceBuilder
 from metahan.io.config_loader import LayoutConfig
 
 
-def write_layout_gds(config: LayoutConfig, output_file: Optional[str] = None) -> Path:
+def build_layout_library(config: LayoutConfig) -> tuple[gdstk.Library, str]:
     lib = gdstk.Library()
     used_names = set()
 
@@ -50,6 +50,12 @@ def write_layout_gds(config: LayoutConfig, output_file: Optional[str] = None) ->
                 ms_cell.add(*polys)
             lib.add(ms_cell)
             group_cell.add(gdstk.Reference(ms_cell, origin=item.origin))
+
+    return lib, top_root.name
+
+
+def write_layout_gds(config: LayoutConfig, output_file: Optional[str] = None) -> Path:
+    lib, _ = build_layout_library(config)
 
     target = Path(output_file or config.output_file)
     lib.write_gds(str(target))

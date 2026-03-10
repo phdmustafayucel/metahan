@@ -162,13 +162,182 @@ metahan --config configs/layout.yaml
 Or from Python:
 
 ```python
-from metahan.io.config_loader import load_layout_config
-from metahan.io.gds_writer import write_layout_gds
+from metahan import build_layout
 
-cfg = load_layout_config("configs/layout.yaml")
-path = write_layout_gds(cfg)
+layout = build_layout("configs/layout.yaml")
+layout.plot()        # lightweight point preview
+layout.show()        # writes a temporary GDS and opens it with the system viewer
+path = layout.write_gds("output/layout.gds")
 print(path)
 ```
+
+## YAML reference
+
+The layout config is organized like this:
+
+```text
+output
+top_cells[]
+  name
+  layer
+  datatype
+  metasurfaces[]
+    name
+    origin
+    unit_cell
+    lattice or positions
+    center
+    rotation_deg
+    aperture
+```
+
+Commented example:
+
+```yaml
+output:
+  file: output/layout.gds   # Output GDS path
+
+top_cells:
+  - name: METASURFACE_MEASURABLE   # Group name; exported as GROUP_METASURFACE_MEASURABLE under TOP
+    layer: 1                       # All polygons in this group are written on layer 1
+    datatype: 0                    # Optional sub-category inside the layer
+    metasurfaces:
+      - name: METASURFACE_W_100    # Cell name of this metasurface
+        origin: [0, 0]             # Where this metasurface is placed inside its group cell
+
+        unit_cell:                 # Repeated geometry placed on each lattice position
+          type: circle
+          radius_um: 0.15
+
+        lattice:                   # Regular grid generation
+          kind: square             # square or hexagonal
+          pitch: 1.5               # Spacing between neighbor lattice positions, in um
+          nx: 200                  # Number of columns
+          ny: 200                  # Number of rows
+
+        # Alternative to lattice:
+        # positions:
+        #   - [0.0, 0.0]
+        #   - [1.5, 0.0]
+        #   - [3.0, 0.0]
+
+        center: [0.0, 0.0]         # Final translation applied to the metasurface geometry
+        rotation_deg: 0.0          # Final rotation applied to the metasurface geometry
+
+        aperture:                  # Optional clipping/filtering region
+          type: rectangle
+          width: 100
+          height: 100
+```
+
+Field meanings:
+
+- `output.file`: output `.gds` path.
+- `top_cells`: logical groups. The writer exports one root `TOP`, then one `GROUP_<name>` per entry.
+- `top_cells[].layer` / `top_cells[].datatype`: applied to every polygon generated in that group.
+- `metasurfaces[].origin`: placement of that metasurface inside its group cell.
+- `metasurfaces[].center`: translation applied to the generated pattern before `origin`.
+- `metasurfaces[].rotation_deg`: rotation applied to the generated pattern before `origin`.
+- `metasurfaces[].lattice`: use this for a regular array.
+- `metasurfaces[].positions`: use this instead of `lattice` if you want explicit custom coordinates.
+
+Supported `unit_cell` types:
+
+- `circle`
+  Example:
+  ```yaml
+  unit_cell:
+    type: circle
+    radius_um: 0.15
+  ```
+- `square`
+  Example:
+  ```yaml
+  unit_cell:
+    type: square
+    side_um: 0.30
+  ```
+- `rectangle`
+  Example:
+  ```yaml
+  unit_cell:
+    type: rectangle
+    width_um: 0.40
+    height_um: 0.20
+  ```
+- `ellipse`
+  Example:
+  ```yaml
+  unit_cell:
+    type: ellipse
+    radius_x_um: 0.25
+    radius_y_um: 0.10
+  ```
+- `triangle`
+  Example:
+  ```yaml
+  unit_cell:
+    type: triangle
+    side_um: 0.30
+  ```
+- `cross`
+  Example:
+  ```yaml
+  unit_cell:
+    type: cross
+    arm_length_um: 0.40
+    arm_width_um: 0.12
+  ```
+- `supercell`
+  Example:
+  ```yaml
+  unit_cell:
+    type: supercell
+    cells:
+      - type: circle
+        radius_um: 0.20
+        offset: [0.0, 0.0]
+      - type: rectangle
+        width_um: 0.30
+        height_um: 0.10
+        offset: [0.5, 0.0]
+  ```
+  Notes:
+  Each child entry uses the same schema as a normal `unit_cell`, plus `offset: [x, y]`.
+
+Supported `lattice.kind` values:
+
+- `square`
+- `hexagonal`
+
+Supported `aperture` types:
+
+- `rectangle`
+  ```yaml
+  aperture:
+    type: rectangle
+    width: 100
+    height: 80
+  ```
+- `square`
+  ```yaml
+  aperture:
+    type: square
+    side: 100
+  ```
+- `circle`
+  ```yaml
+  aperture:
+    type: circle
+    radius: 50
+  ```
+
+Rules to keep in mind:
+
+- Use either `lattice` or `positions`, not both.
+- If you use `lattice`, you must provide `pitch`, `nx`, and `ny`.
+- `center`, `origin`, offsets, pitch, and aperture dimensions are interpreted in micrometers.
+- `layer` and `datatype` are defined at the group level in the current YAML schema.
 
 ## Configuration notes
 
