@@ -1,0 +1,56 @@
+# example config: configs/layout.yaml
+output:
+  file: layout.gds
+
+top_cells:
+  - name: METASURFACE_MEASURABLE
+    layer: 1
+    datatype: 0
+    metasurfaces:
+      - name: METASURFACE_W_100
+        origin: [0, 0]
+        unit_cell:
+          type: supercell
+          cells:
+            - type: circle
+              radius_um: 0.25
+              offset: [0.0, 0.0]
+            - type: circle
+              radius_um: 0.10
+              offset: [0.5, 0.5]
+        lattice:
+          kind: square
+          pitch: 1.5
+          nx: 200
+          ny: 200
+        center: [0.0, 0.0]
+        rotation_deg: 0.0
+        aperture:
+          type: rectangle
+          width: 100
+          height: 100
+
+      - name: METASURFACE_W_200
+        origin: [500, 0]
+        unit_cell:
+          type: circle
+          radius_um: 0.15
+        lattice:
+          kind: square
+          pitch: 1.5
+          nx: 200
+          ny: 200
+        center: [0.0, 0.0]
+
+  - name: METASURFACE_DOSE_TEST
+    layer: 2
+    datatype: 0
+    metasurfaces:
+      - name: METASURFACE_D_100
+        origin: [-1000, -100]
+        unit_cell: { type: circle, radius_um: 0.10 }
+        lattice: { kind: square, pitch: 1.0, nx: 100, ny: 100 }
+      - name: METASURFACE_D_200
+        origin: [-300, 0]
+        unit_cell: { type: circle, radius_um: 0.20 }
+        lattice: { kind: square, pitch: 1.0, nx: 100, ny: 100 }

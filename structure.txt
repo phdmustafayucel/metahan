@@ -1,0 +1,133 @@
+metasurface-gds/
+├── .github/
+│   └── workflows/
+│       └── ci.yml                         # tests/lint automatiques (optionnel mais recommandé)
+│
+├── docs/
+│   ├── architecture.md                    # explication du design logiciel
+│   ├── unit_cells.md                      # catalogue des cellules unitaires
+│   └── metasurface_shapes.md              # formes globales supportées
+│
+├── examples/
+│   ├── example_circle_aperture.py         # metasurface circulaire + cellule choisie
+│   ├── example_rectangle_aperture.py      # metasurface rectangulaire
+│   ├── example_half_disk_aperture.py      # metasurface demi-cercle
+│   └── example_param_sweep.py             # balayage de paramètres (pitch, dimensions, etc.)
+│
+├── configs/
+│   ├── unit_cells/
+│   │   ├── circle.yaml                    # paramètres par défaut cellule cercle
+│   │   ├── ellipse.yaml                   # paramètres par défaut cellule ellipse
+│   │   ├── rectangle.yaml
+│   │   ├── square.yaml
+│   │   ├── cross.yaml
+│   │   └── triangle.yaml
+│   │
+│   ├── apertures/
+│   │   ├── square.yaml                    # forme globale metasurface (carré)
+│   │   ├── rectangle.yaml                 # forme globale (rectangle)
+│   │   ├── circle.yaml                    # forme globale (cercle)
+│   │   └── half_circle.yaml               # forme globale (demi-cercle)
+│   │
+│   └── examples/
+│       ├── demo_square_on_circle.yaml     # ex: cellules carrées sur aperture circulaire
+│       └── demo_cross_on_rectangle.yaml
+│
+├── output/
+│   ├── gds/                               # fichiers GDS générés (gitignored)
+│   └── previews/                          # images/PNG/SVG de preview (gitignored)
+│
+├── scripts/
+│   ├── run_from_config.py                 # lance une génération depuis un YAML/JSON
+│   └── batch_generate.py                  # génération en lot
+│
+├── src/
+│   └── metasurface_gds/
+│       ├── __init__.py
+│       ├── cli.py                         # interface ligne de commande
+│       ├── constants.py                   # couches GDS, unités, tolérances...
+│       ├── exceptions.py                  # exceptions custom
+│       │
+│       ├── core/
+│       │   ├── __init__.py
+│       │   ├── builder.py                 # orchestrateur principal de la génération
+│       │   ├── lattice.py                 # grille/pitch/placement des cellules
+│       │   ├── placement.py               # logique de placement et clipping sur aperture
+│       │   ├── params.py                  # dataclasses / modèles de paramètres
+│       │   └── validation.py              # validation dimensions/contraintes
+│       │
+│       ├── geometry/
+│       │   ├── __init__.py
+│       │   ├── primitives.py              # fonctions géométriques de base (points, polygones)
+│       │   ├── transforms.py              # rotation, translation, scaling, mirroring
+│       │   └── utils.py                   # utilitaires géométriques
+│       │
+│       ├── unit_cells/
+│       │   ├── __init__.py
+│       │   ├── base.py                    # interface abstraite UnitCell
+│       │   ├── registry.py                # registre: "circle" -> classe CircleCell
+│       │   ├── circle.py                  # cellule unitaire cercle
+│       │   ├── ellipse.py                 # cellule unitaire ellipse
+│       │   ├── rectangle.py               # cellule unitaire rectangle
+│       │   ├── square.py                  # cellule unitaire carré
+│       │   ├── cross.py                   # cellule unitaire croix
+│       │   └── triangle.py                # cellule unitaire triangle
+│       │
+│       ├── apertures/
+│       │   ├── __init__.py
+│       │   ├── base.py                    # interface abstraite Aperture
+│       │   ├── registry.py                # registre: "circle" -> classe CircleAperture
+│       │   ├── square.py                  # aperture carrée
+│       │   ├── rectangle.py               # aperture rectangulaire
+│       │   ├── circle.py                  # aperture circulaire
+│       │   └── half_circle.py             # aperture demi-cercle
+│       │
+│       ├── mapping/
+│       │   ├── __init__.py
+│       │   ├── phase_map.py               # (optionnel) carte de phase / amplitude
+│       │   ├── lookup_table.py            # lien géométrie cellule <-> réponse optique
+│       │   └── strategies.py              # stratégies de distribution/variation des cellules
+│       │
+│       ├── io/
+│       │   ├── __init__.py
+│       │   ├── config_loader.py           # charge YAML/JSON
+│       │   ├── gds_writer.py              # export GDS (gdstk/gdspy)
+│       │   ├── preview.py                 # preview rapide (matplotlib/svg)
+│       │   └── naming.py                  # convention de nommage des fichiers
+│       │
+│       └── utils/
+│           ├── __init__.py
+│           ├── logging.py                 # logs structurés
+│           └── units.py                   # nm/um/mm conversion
+│
+├── tests/
+│   ├── __init__.py
+│   ├── conftest.py
+│   ├── test_unit_cells/
+│   │   ├── test_circle.py
+│   │   ├── test_ellipse.py
+│   │   ├── test_rectangle.py
+│   │   ├── test_cross.py
+│   │   └── test_triangle.py
+│   │
+│   ├── test_apertures/
+│   │   ├── test_circle_aperture.py
+│   │   ├── test_rectangle_aperture.py
+│   │   └── test_half_circle_aperture.py
+│   │
+│   ├── test_core/
+│   │   ├── test_lattice.py
+│   │   ├── test_placement.py
+│   │   └── test_builder.py
+│   │
+│   └── test_io/
+│       ├── test_config_loader.py
+│       └── test_gds_writer.py
+│
+├── .gitignore
+├── .pre-commit-config.yaml                # optionnel (black, ruff, etc.)
+├── LICENSE
+├── README.md
+├── pyproject.toml                         # dépendances + packaging (recommandé)
+├── requirements.txt                       # si tu veux rester simple au début
+└── Makefile                               # commandes rapides (test, lint, run)

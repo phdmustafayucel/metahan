@@ -1,0 +1,7 @@
+gdstk
+numpy
+pyyaml
+matplotlib
+pytest
+pytest-cov
+pytest-mock
