@@ -257,6 +257,7 @@ Supported `unit_cell` types:
     type: square
     side_um: 0.30
   ```
+  ![Square unit cell example](figures/square.png)
 - `rectangle`
   Example:
   ```yaml
