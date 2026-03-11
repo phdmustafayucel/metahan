@@ -1,0 +1,16 @@
+output: { file: output/gds/demo_circle_on_half_circle.gds }
+
+top_cells:
+  - name: DEMO_CIRCLE_ON_HALF_CIRCLE
+    layer: 1
+    datatype: 0
+    metasurfaces:
+      - name: MS_CIRCLE_HALF_CIRCLE
+        origin: [0, 0]
+        unit_cell: { type: circle, radius_um: 0.15 }
+        lattice: { kind: square, pitch: 0.6, nx: 80, ny: 80 }
+        aperture:
+          type: half_circle
+          radius: 10
+          center: [0.0, 0.0]
+          orientation: up

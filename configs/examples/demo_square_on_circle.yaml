@@ -1,0 +1,12 @@
+output: { file: output/gds/demo_square_on_circle.gds }
+
+top_cells:
+  - name: DEMO_SQUARE_ON_CIRCLE
+    layer: 1
+    datatype: 0
+    metasurfaces:
+      - name: MS_SQUARE_CIRCLE
+        origin: [0, 0]
+        unit_cell: { type: square, side_um: 0.30 }
+        lattice: { kind: square, pitch: 0.6, nx: 80, ny: 80 }
+        aperture: { type: circle, radius: 10 }

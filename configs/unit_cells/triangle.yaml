@@ -1,0 +1,3 @@
+unit_cell:
+  type: triangle
+  side_um: 0.30

@@ -1,0 +1,4 @@
+unit_cell:
+  type: rectangle
+  width_um: 0.40
+  height_um: 0.20

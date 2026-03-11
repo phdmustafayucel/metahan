@@ -1,0 +1,10 @@
+unit_cell:
+  type: supercell
+  cells:
+    - type: circle
+      radius_um: 0.20
+      offset: [0.0, 0.0]
+    - type: rectangle
+      width_um: 0.30
+      height_um: 0.12
+      offset: [0.25, 0.0]

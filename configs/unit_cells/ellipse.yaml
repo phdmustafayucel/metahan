@@ -1,0 +1,4 @@
+unit_cell:
+  type: ellipse
+  radius_x_um: 0.25
+  radius_y_um: 0.10

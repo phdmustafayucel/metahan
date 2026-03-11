@@ -1,0 +1,4 @@
+aperture:
+  type: rectangle
+  width: 20.0
+  height: 10.0

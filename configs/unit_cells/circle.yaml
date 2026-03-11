@@ -1,0 +1,3 @@
+unit_cell:
+  type: circle
+  radius_um: 0.15

@@ -1,0 +1,12 @@
+output: { file: output/gds/demo_cross_on_rectangle.gds }
+
+top_cells:
+  - name: DEMO_CROSS_ON_RECTANGLE
+    layer: 1
+    datatype: 0
+    metasurfaces:
+      - name: MS_CROSS_RECT
+        origin: [0, 0]
+        unit_cell: { type: cross, arm_length_um: 0.40, arm_width_um: 0.12 }
+        lattice: { kind: square, pitch: 0.6, nx: 80, ny: 80 }
+        aperture: { type: rectangle, width: 20, height: 12 }

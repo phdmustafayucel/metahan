@@ -8,6 +8,7 @@ from typing import Any, Dict, List, Optional, Tuple
 import yaml
 
 from metahan.apertures.circle import CircleAperture
+from metahan.apertures.half_circle import HalfCircleAperture
 from metahan.apertures.rectangle import RectangleAperture
 from metahan.apertures.square import SquareAperture
 from metahan.core.lattice import Lattice
@@ -80,6 +81,12 @@ def _build_aperture(cfg: Optional[Dict[str, Any]]):
         return RectangleAperture(width=float(cfg["width"]), height=float(cfg["height"]))
     if t == "circle":
         return CircleAperture(radius=float(cfg["radius"]))
+    if t == "half_circle":
+        return HalfCircleAperture(
+            radius=float(cfg["radius"]),
+            center=_to_xy(cfg.get("center", [0.0, 0.0]), "aperture.center"),
+            orientation=str(cfg.get("orientation", "up")),
+        )
     if t == "square":
         return SquareAperture(side=float(cfg["side"]))
     raise ValueError(f"Unsupported aperture.type: {t}")
