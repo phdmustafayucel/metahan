@@ -265,6 +265,7 @@ Supported `unit_cell` types:
     width_um: 0.40
     height_um: 0.20
   ```
+  ![Rectangle unit cell example](figures/rectangle.png)
 - `ellipse`
   Example:
   ```yaml
