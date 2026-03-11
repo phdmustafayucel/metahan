@@ -288,6 +288,7 @@ Supported `unit_cell` types:
     arm_length_um: 0.40
     arm_width_um: 0.12
   ```
+  ![Cross unit cell example](figures/cross.png)
 - `supercell`
   Example:
   ```yaml
