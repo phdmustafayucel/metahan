@@ -249,7 +249,6 @@ Supported `unit_cell` types:
     type: circle
     radius_um: 0.15
   ```
-  # center the image for circle
   ![Circle unit cell example](figures/circle.png)
 - `square`
   Example:
