@@ -1,5 +1,7 @@
 # MetaHan
 
+![MetaHan logo](figures/logo_bw.png)
+
 MetaHan is a Python toolkit for metasurface layout generation and GDSII export.
 It provides reusable unit-cell geometry, lattice placement, aperture filtering,
 and a config-driven flow to build multi-cell GDS layouts.
