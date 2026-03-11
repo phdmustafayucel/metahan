@@ -242,7 +242,6 @@ Field meanings:
 - `metasurfaces[].positions`: use this instead of `lattice` if you want explicit custom coordinates.
 
 Supported `unit_cell` types:
-  ![Circle unit cell example](figures/circle.png)
 - `circle`
   Example:
   ```yaml
@@ -250,6 +249,8 @@ Supported `unit_cell` types:
     type: circle
     radius_um: 0.15
   ```
+  # center the image for circle
+  ![Circle unit cell example](figures/circle.png)
 - `square`
   Example:
   ```yaml
