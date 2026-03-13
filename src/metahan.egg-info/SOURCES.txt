@@ -5,6 +5,7 @@ src/metahan/__init__.py
 src/metahan/cli.py
 src/metahan/constants.py
 src/metahan/exceptions.py
+src/metahan/layout.py
 src/metahan.egg-info/PKG-INFO
 src/metahan.egg-info/SOURCES.txt
 src/metahan.egg-info/dependency_links.txt
