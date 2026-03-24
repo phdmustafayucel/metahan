@@ -1,0 +1,4 @@
+unit_cell:
+  type: ring
+  outer_radius_um: 2000
+  inner_radius_um: 1900

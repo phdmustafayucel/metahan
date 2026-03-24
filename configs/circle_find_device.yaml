@@ -1,0 +1,15 @@
+output: { file: output/gds/circle_find_device_20u.gds }
+
+top_cells:
+  - name: RING_DEVICE
+    layer: 1
+    datatype: 0
+    metasurfaces:
+      - name: MS_RING
+        origin: [0, 0]
+        unit_cell: { type: ring, outer_radius_um: 20000, inner_radius_um: 19980 }
+        lattice: { kind: square, pitch: 100, nx: 1, ny: 1 }
+        aperture:
+          type: circle
+          radius: 2500
+          center: [0.0, 0.0]

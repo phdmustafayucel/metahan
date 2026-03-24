@@ -17,6 +17,7 @@ from metahan.unit_cells.circle import CircleCell
 from metahan.unit_cells.cross import CrossCell
 from metahan.unit_cells.ellipse import EllipseCell
 from metahan.unit_cells.rectangle import RectangleCell
+from metahan.unit_cells.ring import RingCell
 from metahan.unit_cells.square import SquareCell
 from metahan.unit_cells.supercell import SuperCell
 from metahan.unit_cells.triangle import TriangleCell
@@ -53,6 +54,12 @@ def _build_unit_cell(cfg: Dict[str, Any]):
     t = cfg.get("type")
     if t == "circle":
         return CircleCell(radius_um=float(cfg["radius_um"]))
+    if t == "ring":
+        return RingCell(
+            outer_radius_um=float(cfg["outer_radius_um"]),
+            inner_radius_um=float(cfg["inner_radius_um"]),
+            tolerance_um=float(cfg.get("tolerance_um", 1e-1))
+        )
     if t == "square":
         return SquareCell(side_um=float(cfg["side_um"]))
     if t == "rectangle":
