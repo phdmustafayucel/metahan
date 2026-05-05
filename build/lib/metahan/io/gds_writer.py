@@ -58,6 +58,5 @@ def write_layout_gds(config: LayoutConfig, output_file: Optional[str] = None) ->
     lib, _ = build_layout_library(config)
 
     target = Path(output_file or config.output_file)
-    # max_points=0 disables automatic fracturing (default=199 splits circles into halves)
-    lib.write_gds(str(target), max_points=0)
+    lib.write_gds(str(target))
     return target

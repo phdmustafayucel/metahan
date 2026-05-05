@@ -46,6 +46,7 @@ src/metahan/unit_cells/cross.py
 src/metahan/unit_cells/ellipse.py
 src/metahan/unit_cells/rectangle.py
 src/metahan/unit_cells/registry.py
+src/metahan/unit_cells/ring.py
 src/metahan/unit_cells/square.py
 src/metahan/unit_cells/supercell.py
 src/metahan/unit_cells/triangle.py

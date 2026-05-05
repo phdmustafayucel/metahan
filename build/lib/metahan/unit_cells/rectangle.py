@@ -17,8 +17,6 @@ class RectangleCell(UnitCell):
         height_um: float,
         layer: int = 1,
         datatype: int = 0,
-        serif: bool = False,
-        serif_size_um: float = 0.020,
     ):
         super().__init__(layer=layer, datatype=datatype)
         if width_um <= 0:
@@ -27,38 +25,13 @@ class RectangleCell(UnitCell):
             raise ValueError("height_um must be > 0")
         self.width_um: float = float(width_um)
         self.height_um: float = float(height_um)
-        self.serif: bool = serif
-        self.serif_size_um: float = float(serif_size_um)
-
-    def _serif_rect(self, cx: float, cy: float) -> gdstk.Polygon:
-        h = self.serif_size_um / 2.0
-        return gdstk.rectangle(
-            (cx - h, cy - h), (cx + h, cy + h),
-            layer=self.layer, datatype=self.datatype,
-        )
 
     def build_polygons(self) -> list[gdstk.Polygon]:
         half_w = self.width_um / 2.0
         half_h = self.height_um / 2.0
-        rect = gdstk.rectangle(
+        return [gdstk.rectangle(
             (-half_w, -half_h),
             (half_w, half_h),
             layer=self.layer,
             datatype=self.datatype,
-        )
-
-        if not self.serif:
-            return [rect]
-
-        # 4 outer convex corners
-        outer_corners = [
-            (-half_w,  half_h), ( half_w,  half_h),
-            (-half_w, -half_h), ( half_w, -half_h),
-        ]
-        outer_serifs = [self._serif_rect(cx, cy) for cx, cy in outer_corners]
-
-        result = gdstk.boolean(
-            [rect], outer_serifs, "or",
-            layer=self.layer, datatype=self.datatype,
-        )
-        return result or [rect]
+        )]

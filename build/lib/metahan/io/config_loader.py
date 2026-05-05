@@ -53,36 +53,23 @@ def _to_xy(value: Any, field: str) -> Tuple[float, float]:
 def _build_unit_cell(cfg: Dict[str, Any]):
     t = cfg.get("type")
     if t == "circle":
-        return CircleCell(
-            radius_um=float(cfg["radius_um"]),
-            tolerance_um=float(cfg.get("tolerance_um", 10e-5)),
-        )
+        return CircleCell(radius_um=float(cfg["radius_um"]))
     if t == "ring":
         return RingCell(
             outer_radius_um=float(cfg["outer_radius_um"]),
             inner_radius_um=float(cfg["inner_radius_um"]),
-            tolerance_um=float(cfg.get("tolerance_um", 10e-5))
+            tolerance_um=float(cfg.get("tolerance_um", 1e-1))
         )
     if t == "square":
         return SquareCell(side_um=float(cfg["side_um"]))
     if t == "rectangle":
-        return RectangleCell(
-            width_um=float(cfg["width_um"]),
-            height_um=float(cfg["height_um"]),
-            serif=bool(cfg.get("serif", False)),
-            serif_size_um=float(cfg.get("serif_size_um", 0.020)),
-        )
+        return RectangleCell(width_um=float(cfg["width_um"]), height_um=float(cfg["height_um"]))
     if t == "ellipse":
         return EllipseCell(radius_x_um=float(cfg["radius_x_um"]), radius_y_um=float(cfg["radius_y_um"]))
     if t == "triangle":
         return TriangleCell(side_um=float(cfg["side_um"]))
     if t == "cross":
-        return CrossCell(
-            arm_length_um=float(cfg["arm_length_um"]),
-            arm_width_um=float(cfg["arm_width_um"]),
-            serif=bool(cfg.get("serif", False)),
-            serif_size_um=float(cfg.get("serif_size_um", 0.020)),
-        )
+        return CrossCell(arm_length_um=float(cfg["arm_length_um"]), arm_width_um=float(cfg["arm_width_um"]))
     if t == "supercell":
         cells = []
         for item in cfg.get("cells", []):

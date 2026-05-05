@@ -31,7 +31,7 @@ class CircleCell(UnitCell):
         radius_um: float,
         layer: int = 1,
         datatype: int = 0,
-        tolerance_um: float = 2.5e-5,
+        tolerance_um: float = 1e-3,
     ):
         """
         Initialize a circular unit cell.

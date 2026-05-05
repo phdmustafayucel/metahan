@@ -1,110 +1,152 @@
-# example config: configs/layout.yaml
+# Dose test layout — 100 kV EBPG CMI EPFL
+# Gap rules: 30 µm min between structures (3× backscatter radius), 50 µm between groups
 output: { file: output/gds/metasurface_dose_test.gds }
 
 top_cells:
-  - name: METASURFACE_CROSS
-    layer: 1
-    datatype: 0
-    metasurfaces:
-      - name: METASURFACE_CROSS_W_100_L_300_P_400
-        origin: [1000, 26]
-        unit_cell:
-          type: supercell
-          cells: [{ type: cross, arm_length_um: 0.30, arm_width_um: 0.1, offset: [0.0, 0.0] }]
-        lattice: { kind: square, pitch: 0.4, nx: 250, ny: 250 }
-        aperture: { type: rectangle, width: 50, height: 50 }
-      - name: METASURFACE_CROSS_W_100_L_310_P_400
-        origin: [1000, -26]
-        unit_cell:
-          type: supercell
-          cells: [{ type: cross, arm_length_um: 0.31, arm_width_um: 0.10, offset: [0.0, 0.0] }]
-        lattice: { kind: square, pitch: 0.4, nx: 250, ny: 250 }
-        aperture: { type: rectangle, width: 50, height: 50 }
-      - name: METASURFACE_CROSS_W_100_L_320_P_400
-        origin: [1060, 26]
-        unit_cell:
-          type: supercell
-          cells: [{ type: cross, arm_length_um: 0.32, arm_width_um: 0.10, offset: [0.0, 0.0] }]
-        lattice: { kind: square, pitch: 0.4, nx: 250, ny: 250 }
-        aperture: { type: rectangle, width: 50, height: 50 }
-      - name: METASURFACE_CROSS_W_100_L_330_P_400
-        origin: [1060, -26]
-        unit_cell:
-          type: supercell
-          cells: [{ type: cross, arm_length_um: 0.33, arm_width_um: 0.10, offset: [0.0, 0.0] }]
-        lattice: { kind: square, pitch: 0.4, nx: 250, ny: 250 }
-        aperture: { type: rectangle, width: 50, height: 50 }
 
-
-  - name: METASURFACE_CYLINDER
-    layer: 1
-    datatype: 0
-    metasurfaces:
-      - name: METASURFACE_CYLINDER_R_150_P_400
-        origin: [1200, -26]
-        unit_cell:
-          type: supercell
-          cells: [{ type: circle, radius_um: 0.15, offset: [0.0, 0.0] }]
-        lattice: { kind: square, pitch: 0.4, nx: 250, ny: 250 }
-        aperture: { type: rectangle, width: 50, height: 50 }
-      - name: METASURFACE_CYLINDER_R_160_P_400
-        origin: [1200, 26]
-        unit_cell:
-          type: supercell
-          cells: [{ type: circle, radius_um: 0.16, offset: [0.0, 0.0] }]
-        lattice: { kind: square, pitch: 0.4, nx: 250, ny: 250 }
-        aperture: { type: rectangle, width: 50, height: 50 }
-      - name: METASURFACE_CYLINDER_R_170_P_400
-        origin: [1260, -26]
-        unit_cell:
-          type: supercell
-          cells: [{ type: circle, radius_um: 0.17, offset: [0.0, 0.0] }]
-        lattice: { kind: square, pitch: 0.4, nx: 250, ny: 250 }
-        aperture: { type: rectangle, width: 50, height: 50 }
-      - name: METASURFACE_CYLINDER_R_180_P_400
-        origin: [1260, 26]
-        unit_cell:
-          type: supercell
-          cells: [{ type: circle, radius_um: 0.18, offset: [0.0, 0.0] }]
-        lattice: { kind: square, pitch: 0.4, nx: 250, ny: 250 }
-        aperture: { type: rectangle, width: 50, height: 50 }
-
+  # --- DOSE TEST GRATINGS (50×50 µm, 2×3 grid, y=±40 → 30 µm gap, step 80 µm → 30 µm gap) ---
+  # pitch=300 nm, drawn_width = pitch - gap, cols at x=0/80/160, edges x∈[-25,185]
   - name: METASURFACE_DOSE_TEST
     layer: 1
     datatype: 0
     metasurfaces:
-      - name: METASURFACE_GRATING_W_160_L_100_P_300
-        origin: [0, 0]
+      - name: METASURFACE_GRATING_GAP_090
+        origin: [0, 40]
         unit_cell:
           type: supercell
-          cells: [{ type: rectangle, width_um: 0.16, height_um: 100, offset: [0.0, 0.0] }]
-        lattice: { kind: square, pitch: 0.3, nx: 333, ny: 1 }
-        aperture: { type: rectangle, width: 100, height: 100 }
-      - name: METASURFACE_GRATING_W_170_L_100_P_300
-        origin: [200, 0]
+          cells: [{ type: rectangle, width_um: 0.210, height_um: 50, offset: [0.0, 0.0] }]
+        lattice: { kind: square, pitch: 0.3, nx: 167, ny: 1 }
+        aperture: { type: rectangle, width: 50, height: 50 }
+      - name: METASURFACE_GRATING_GAP_100
+        origin: [0, -40]
         unit_cell:
           type: supercell
-          cells: [{ type: rectangle, width_um: 0.17, height_um: 100, offset: [0.0, 0.0] }]
-        lattice: { kind: square, pitch: 0.3, nx: 333, ny: 1 }
-        aperture: { type: rectangle, width: 100, height: 100 }
-      - name: METASURFACE_GRATING_W_180_L_100_P_300
-        origin: [400, 0]
+          cells: [{ type: rectangle, width_um: 0.200, height_um: 50, offset: [0.0, 0.0] }]
+        lattice: { kind: square, pitch: 0.3, nx: 167, ny: 1 }
+        aperture: { type: rectangle, width: 50, height: 50 }
+      - name: METASURFACE_GRATING_GAP_110
+        origin: [80, 40]
         unit_cell:
           type: supercell
-          cells: [{ type: rectangle, width_um: 0.18, height_um: 100, offset: [0.0, 0.0] }]
-        lattice: { kind: square, pitch: 0.3, nx: 333, ny: 1 }
-        aperture: { type: rectangle, width: 100, height: 100 }
-      - name: METASURFACE_GRATING_W_190_L_100_P_300
-        origin: [600, 0]
+          cells: [{ type: rectangle, width_um: 0.190, height_um: 50, offset: [0.0, 0.0] }]
+        lattice: { kind: square, pitch: 0.3, nx: 167, ny: 1 }
+        aperture: { type: rectangle, width: 50, height: 50 }
+      - name: METASURFACE_GRATING_GAP_120
+        origin: [80, -40]
         unit_cell:
           type: supercell
-          cells: [{ type: rectangle, width_um: 0.19, height_um: 100, offset: [0.0, 0.0] }]
-        lattice: { kind: square, pitch: 0.3, nx: 333, ny: 1 }
-        aperture: { type: rectangle, width: 100, height: 100 }
-      - name: METASURFACE_GRATING_W_200_L_100_P_300
-        origin: [800, 0]
+          cells: [{ type: rectangle, width_um: 0.180, height_um: 50, offset: [0.0, 0.0] }]
+        lattice: { kind: square, pitch: 0.3, nx: 167, ny: 1 }
+        aperture: { type: rectangle, width: 50, height: 50 }
+      - name: METASURFACE_GRATING_GAP_130
+        origin: [160, 40]
         unit_cell:
           type: supercell
-          cells: [{ type: rectangle, width_um: 0.20, height_um: 100, offset: [0.0, 0.0] }]
-        lattice: { kind: square, pitch: 0.3, nx: 333, ny: 1 }
-        aperture: { type: rectangle, width: 100, height: 100 }
+          cells: [{ type: rectangle, width_um: 0.170, height_um: 50, offset: [0.0, 0.0] }]
+        lattice: { kind: square, pitch: 0.3, nx: 167, ny: 1 }
+        aperture: { type: rectangle, width: 50, height: 50 }
+      - name: METASURFACE_GRATING_GAP_140
+        origin: [160, -40]
+        unit_cell:
+          type: supercell
+          cells: [{ type: rectangle, width_um: 0.160, height_um: 50, offset: [0.0, 0.0] }]
+        lattice: { kind: square, pitch: 0.3, nx: 167, ny: 1 }
+        aperture: { type: rectangle, width: 50, height: 50 }
+
+  # --- CROSS (50×50 µm, 2×3 grid, y=±40 → 30 µm gap, step 80 µm → 30 µm gap) ---
+  # pitch=400 nm, arm_length = pitch - gap, cols at x=260/340/420, 50 µm gap from last grating edge (x=185)
+  - name: METASURFACE_CROSS
+    layer: 1
+    datatype: 0
+    metasurfaces:
+      - name: METASURFACE_CROSS_GAP_090
+        origin: [260, 40]
+        unit_cell:
+          type: supercell
+          cells: [{ type: cross, arm_length_um: 0.310, arm_width_um: 0.100, serif: true, serif_size_um: 0.020 }]
+        lattice: { kind: square, pitch: 0.4, nx: 125, ny: 125 }
+        aperture: { type: rectangle, width: 50, height: 50 }
+      - name: METASURFACE_CROSS_GAP_100
+        origin: [260, -40]
+        unit_cell:
+          type: supercell
+          cells: [{ type: cross, arm_length_um: 0.300, arm_width_um: 0.100, offset: [0.0, 0.0] }]
+        lattice: { kind: square, pitch: 0.4, nx: 125, ny: 125 }
+        aperture: { type: rectangle, width: 50, height: 50 }
+      - name: METASURFACE_CROSS_GAP_110
+        origin: [340, 40]
+        unit_cell:
+          type: supercell
+          cells: [{ type: cross, arm_length_um: 0.290, arm_width_um: 0.100, offset: [0.0, 0.0] }]
+        lattice: { kind: square, pitch: 0.4, nx: 125, ny: 125 }
+        aperture: { type: rectangle, width: 50, height: 50 }
+      - name: METASURFACE_CROSS_GAP_120
+        origin: [340, -40]
+        unit_cell:
+          type: supercell
+          cells: [{ type: cross, arm_length_um: 0.280, arm_width_um: 0.100, offset: [0.0, 0.0] }]
+        lattice: { kind: square, pitch: 0.4, nx: 125, ny: 125 }
+        aperture: { type: rectangle, width: 50, height: 50 }
+      - name: METASURFACE_CROSS_GAP_130
+        origin: [420, 40]
+        unit_cell:
+          type: supercell
+          cells: [{ type: cross, arm_length_um: 0.270, arm_width_um: 0.100, offset: [0.0, 0.0] }]
+        lattice: { kind: square, pitch: 0.4, nx: 125, ny: 125 }
+        aperture: { type: rectangle, width: 50, height: 50 }
+      - name: METASURFACE_CROSS_GAP_140
+        origin: [420, -40]
+        unit_cell:
+          type: supercell
+          cells: [{ type: cross, arm_length_um: 0.260, arm_width_um: 0.100, offset: [0.0, 0.0] }]
+        lattice: { kind: square, pitch: 0.4, nx: 125, ny: 125 }
+        aperture: { type: rectangle, width: 50, height: 50 }
+
+  # --- CYLINDERS (50×50 µm, 2×3 grid, y=±40 → 30 µm gap, step 80 µm → 30 µm gap) ---
+  # pitch=400 nm, radius = (pitch - gap) / 2, cols at x=520/600/680, 50 µm gap from last cross edge (x=445)
+  - name: METASURFACE_CYLINDER
+    layer: 1
+    datatype: 0
+    metasurfaces:
+      - name: METASURFACE_CYLINDER_GAP_090
+        origin: [520, 40]
+        unit_cell:
+          type: supercell
+          cells: [{ type: circle, radius_um: 0.155, offset: [0.0, 0.0] }]
+        lattice: { kind: square, pitch: 0.4, nx: 125, ny: 125 }
+        aperture: { type: rectangle, width: 50, height: 50 }
+      - name: METASURFACE_CYLINDER_GAP_100
+        origin: [520, -40]
+        unit_cell:
+          type: supercell
+          cells: [{ type: circle, radius_um: 0.150, offset: [0.0, 0.0] }]
+        lattice: { kind: square, pitch: 0.4, nx: 125, ny: 125 }
+        aperture: { type: rectangle, width: 50, height: 50 }
+      - name: METASURFACE_CYLINDER_GAP_110
+        origin: [600, 40]
+        unit_cell:
+          type: supercell
+          cells: [{ type: circle, radius_um: 0.145, offset: [0.0, 0.0] }]
+        lattice: { kind: square, pitch: 0.4, nx: 125, ny: 125 }
+        aperture: { type: rectangle, width: 50, height: 50 }
+      - name: METASURFACE_CYLINDER_GAP_120
+        origin: [600, -40]
+        unit_cell:
+          type: supercell
+          cells: [{ type: circle, radius_um: 0.140, offset: [0.0, 0.0] }]
+        lattice: { kind: square, pitch: 0.4, nx: 125, ny: 125 }
+        aperture: { type: rectangle, width: 50, height: 50 }
+      - name: METASURFACE_CYLINDER_GAP_130
+        origin: [680, 40]
+        unit_cell:
+          type: supercell
+          cells: [{ type: circle, radius_um: 0.135, offset: [0.0, 0.0] }]
+        lattice: { kind: square, pitch: 0.4, nx: 125, ny: 125 }
+        aperture: { type: rectangle, width: 50, height: 50 }
+      - name: METASURFACE_CYLINDER_GAP_140
+        origin: [680, -40]
+        unit_cell:
+          type: supercell
+          cells: [{ type: circle, radius_um: 0.130, offset: [0.0, 0.0] }]
+        lattice: { kind: square, pitch: 0.4, nx: 125, ny: 125 }
+        aperture: { type: rectangle, width: 50, height: 50 }
